@@ -16,6 +16,8 @@ import { Avatar, Button, Collapse, List, ListItemAvatar, ListItemButton, ListIte
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import {format} from 'timeago.js'
 import Comment from '../comment/page';
+import FlipMove from "react-flip-move";
+
 
 
 export default function TrackCard({trackData,setModalData,setModalOpen}) {
@@ -117,14 +119,16 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
               value = {comment}
             />
             <List component="div" disablePadding>
-              {comments?.map((comment, index) =>(
+              <FlipMove>
+                {comments?.map((comment, index) =>(
 
-                  <div key = {`comment_${index}`}>
+                    <div key = {`comment_${index}`}>
 
-                    <Comment setComments={setComments} trackId = {trackData.trackId} comment = {comment}/>
-                  </div>
+                      <Comment setComments={setComments} trackId = {trackData.trackId} comment = {comment}/>
+                    </div>
 
-              ))}
+                ))}
+              </FlipMove>
             </List>
           </>
         </Collapse>
