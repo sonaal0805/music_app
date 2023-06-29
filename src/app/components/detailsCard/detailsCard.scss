@@ -1,0 +1,56 @@
+.detailsCard {
+
+    border: none;
+    width: 60%;
+
+    .track,.collection{
+  
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span{
+            font-size: 18px;
+        }
+
+      
+    }
+    .closeButton{
+        background-color: rgb(206, 206, 206);
+        position: 'absolute';
+        top:1;
+        right: 1;
+        color: black;
+        border-radius: 50%;
+        padding: 3px;
+
+        font-size: 20px;
+        &:hover{
+            background-color: rgb(57, 57, 57);
+            color: white;
+            transition: all 0.1s;
+            
+        }
+
+    }
+
+}
+
+// for medium sized screens
+
+@media only screen and (min-width: 600px) and  (max-width: 900px) {
+    .detailsCard {
+        width: 90%;
+    }
+
+}
+
+// for small sized screens
+
+@media only screen and (max-width: 600px) {
+    .detailsCard {
+        width: 100%;
+    }
+
+}
+
