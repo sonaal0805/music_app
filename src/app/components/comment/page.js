@@ -85,7 +85,7 @@ export default function Comment({trackId, comment,setComments}) {
 
       {editing? 
         <TextField 
-          value = {newComment.text}
+          value = {newComment?.text}
           variant = 'standard'
           multiline
           color= "warning"
@@ -99,7 +99,7 @@ export default function Comment({trackId, comment,setComments}) {
 
         />
       :
-        <ListItemText sx = {{maxWidth:'70%', overflow:'hidden'}} primary= {newComment.text}  secondary = {format(newComment.timestamp)}/>
+        <ListItemText sx = {{maxWidth:'70%', overflow:'hidden'}} primary= {newComment?.text}  secondary = {format(newComment?.timestamp)}/>
       }
 
       {showOptions &&

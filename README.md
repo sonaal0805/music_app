@@ -1,34 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Title: Music List
 
-## Getting Started
+Packagae choices:
 
-First, run the development server:
+1. Built using React based NextJS framework: NextJs because it is much the framework makes it much easier to scale the app. 
+2. Mui: Very matured and stable library for styling. Easy and intuitive to use. Significantly reduces the need to write css
+3. react-flip-move: for animation when objects in a list change.
+4. timeago.js: To covert review timestamps to a duration from current timestamp
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Steps to run the app:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Install node version 18.7.0
+2. Run: npm install
+3. Run: npm run dev
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Improvements:
 
-## Learn More
+1. Search Feature: Users should be able to search tracks using collection name, artist name, track name.
+2. User registration and authentication: Can be used to personalise track list and facilitate interaction among users
+3. Like Feature: Users can keep a list of their favorite tracks. This feature can help in the personalosation as well.
+4. Better quality images
+5. Proper server-side database: Currenly with only 50 tracks and just one user, we don't need a proper database. But we would obviously need a properly database to scale the app. 
+6. I would have liked for the reviews to be opened up in a dedicated modal, making it easier for users to post and view larger reviews.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Production Consideration:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+1. build the app by running the following command:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    npm run build
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+Assumptions: 
+
+1. Browser has the following extension installed and activated to avoid CORS errors:
+
+    https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf

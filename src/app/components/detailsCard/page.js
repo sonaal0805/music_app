@@ -25,7 +25,7 @@ export default function DetailsCard({trackData,setModalData}) {
 
   const fetchRelatedTracks = async () =>{
 
-      const artistId = trackData.artistId
+      const artistId = trackData?.artistId
       const url = `https://itunes.apple.com/lookup?id=${artistId}&entity=album`
 
       try{
@@ -46,10 +46,10 @@ export default function DetailsCard({trackData,setModalData}) {
   }
 
   useEffect(()=>{
-    if(trackData.artistId){
+    if(trackData?.artistId){
       fetchRelatedTracks()
     }
-  },[trackData.artistId])
+  },[trackData?.artistId])
 
   return (
 
@@ -72,29 +72,29 @@ export default function DetailsCard({trackData,setModalData}) {
         <CardMedia
           component="img"
           sx={{ width: '100%', maxHeight: 500}}
-          image={trackData.artworkUrl100}
+          image={trackData?.artworkUrl100}
           alt="track image"
         />
         <CardContent>
           <Typography className = 'track' gutterBottom variant="h6" component="div">
-            {trackData.trackName} <span>{`$${trackData.trackPrice}`}</span>
+            {trackData?.trackName} <span>{`$${trackData?.trackPrice}`}</span>
           </Typography>
 
           <Typography className = 'collection' variant="body2">
-            Collection: {trackData.collectionName}
-            <span>{`$${trackData.collectionPrice}`}</span>
+            Collection: {trackData?.collectionName}
+            <span>{`$${trackData?.collectionPrice}`}</span>
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Artist: {trackData.artistName}
+            Artist: {trackData?.artistName}
           </Typography>
             <Typography variant="body2" color="text.secondary">
-            Duration: {millisToMinutesAndSeconds(trackData.trackTimeMillis)}
+            Duration: {millisToMinutesAndSeconds(trackData?.trackTimeMillis)}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Released on: {moment(trackData.releaseDate).format('MMM Do YYYY')}
+            Released on: {moment(trackData?.releaseDate).format('MMM Do YYYY')}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Genre: {trackData.primaryGenreName}
+            Genre: {trackData?.primaryGenreName}
           </Typography>
 
           {error? 
@@ -121,10 +121,10 @@ export default function DetailsCard({trackData,setModalData}) {
 
                       <ListItemButton className = 'related_track_btn'>
                         <ListItemAvatar>
-                          <Avatar src = {track.artworkUrl100}/>
+                          <Avatar src = {track?.artworkUrl100}/>
                         </ListItemAvatar>
                         
-                        <ListItemText primary= {track.collectionName}  secondary = {track.primaryGenreName}/>
+                        <ListItemText primary= {track?.collectionName}  secondary = {track?.primaryGenreName}/>
                         
                       </ListItemButton>
                     </div>

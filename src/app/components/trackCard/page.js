@@ -17,6 +17,8 @@ import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import {format} from 'timeago.js'
 import Comment from '../comment/page';
 import FlipMove from "react-flip-move";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 
 
@@ -63,13 +65,24 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
 
     }
 
+    const commentInputTheme = createTheme({
+      palette: {
+        primary: {
+          // Purple and green play nicely together.
+          main: '#000000',
+        },
+        
+      },
+    });
+
     useEffect(()=>{
-      // console.log('trackId: ',trackData.trackId)
+      console.log('trackId: ',trackData.trackId)
 
       let exisitingComments = sessionStorage.getItem(trackData.trackId.toString());
 
-      // console.log('exisitingComments: ',exisitingComments)
+      console.log('exisitingComments: ',exisitingComments)
       if(exisitingComments){
+
         exisitingComments = JSON.parse(exisitingComments)
         exisitingComments.sort((a,b) => b.timestamp - a.timestamp)
         setComments(exisitingComments)
@@ -77,11 +90,6 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
 
     },[])
 
-    // useEffect(()=>{
-    //   // console.log('track Id: ',trackData.trackId)
-    //   // console.log('comments: ',comments)
-
-    // },[comments])
 
     return (
 
@@ -90,15 +98,15 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
         <CardMedia
           component="img"
           sx={{ width: '100%'}}
-          image={trackData.artworkUrl100}
+          image={trackData?.artworkUrl100}
           alt="track image"
         />
         <CardContent sx ={{pb:0}}>
           <Typography noWrap  variant="h6" component="div">
-            {trackData.trackName}
+            {trackData?.trackName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {trackData.artistName}
+            {trackData?.artistName}
 
           </Typography>
           {/* <Typography variant="body2" color="text.secondary">
@@ -115,32 +123,39 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
       </CardActions>
       
       <CardActions>
-        <Collapse sx ={{ maxHeight:300, width:'100%', overflowY:'scroll'}}  in = {showInput} timeout="auto">
+        <Collapse 
+        sx ={{ maxHeight:300, width:'100%', overflowY:'scroll'}}  
+        in = {showInput} 
+        timeout="auto">
           <>
-            <TextField
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  handleSubmitComment()
-                }
-              }}
-              onChange = {(e)=> handleChange(e)}
-              
-              variant = 'standard'
-              multiline
-              color="warning"
-              maxRows={4}
-              label="Post a Review" 
-              sx ={{width:'100%'}} 
-              value = {comment}
-            />
+            <ThemeProvider theme={commentInputTheme}>
+                <TextField
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleSubmitComment()
+                    }
+                  }}
+                  onChange = {(e)=> handleChange(e)}
+                  className = 'comment_input'
+                  
+                  variant = 'standard'
+                  multiline
+                  color="primary"
+                  maxRows={4}
+                  label="Post a Review" 
+                  sx ={{width:'100%'}} 
+                  value = {comment}
+                />
+
+            </ThemeProvider>
             <List component="div" disablePadding>
               <FlipMove>
                 {comments?.map((comment, index) =>(
 
                     <div key = {`comment_${index}`} className = 'comment_container'>
 
-                      <Comment key =  {`comment_${index}`} setComments={setComments} trackId = {trackData.trackId} comment = {comment}/>
+                      <Comment key =  {`comment_${index}`} setComments={setComments} trackId = {trackData?.trackId} comment = {comment}/>
                     </div>
 
                 ))}

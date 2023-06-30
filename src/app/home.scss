@@ -34,17 +34,20 @@ body{
       max-height: 100%;
       display: flex;
       justify-content: center;
+      overflow: scroll;
 
       .track_list{
         // border: 1px solid red;
         width: fit-content;
         max-width: 100%;
 
+        height: fit-content;
+
         display: grid;
         grid-template-columns: repeat(3, 0fr);
         grid-gap: 30px;
  
-        overflow: scroll;        
+        
         
       }
 

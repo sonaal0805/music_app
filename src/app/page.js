@@ -89,7 +89,7 @@ export default function index() {
               <ListItemText primary= {error} sx ={{color:'red'}}/>
             :
 
-              <div className = 'track_list'>
+              <FlipMove className = 'track_list'>
                   {finalTrackList.map((track,index)=>
       
                     <div key = {`track_${index}`}>
@@ -101,41 +101,25 @@ export default function index() {
                     </div>
           
                   )}
-              </div>
+              </FlipMove>
             
           }
         </div>
 
-        {/* <div className = "track_details">
 
-          {Object.keys(modalData).length > 0? 
-            
+        <Modal
+          open={modalOpen && Object.keys(modalData).length > 0}
+          onClose={()=>{setModalOpen(false)}}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={modalStyle}>
             <DetailsCard 
-              trackData = {modalData}
+              trackData = {modalData} 
               setModalData = {setModalData}
             />
-            :
-            <h4>Select a track to view details</h4>
-          }
-
-        </div> */}
-
-        {/* {isDesktop && */}
-
-          <Modal
-            open={modalOpen && Object.keys(modalData).length > 0}
-            onClose={()=>{setModalOpen(false)}}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={modalStyle}>
-              <DetailsCard 
-                trackData = {modalData} 
-                setModalData = {setModalData}
-  
-              />
-            </Box>
-          </Modal>
+          </Box>
+        </Modal>
       
 
       </div>
