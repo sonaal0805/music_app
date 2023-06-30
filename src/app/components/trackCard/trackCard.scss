@@ -4,7 +4,43 @@
     //     transform: scale(1.05);
     //     transition: all 0.5s;
     // }
-    margin-bottom: 1rem;
+    // margin-bottom: 1rem;
+
+    .comment_section{
+        // border:1px solid red;
+        padding-top: 0;
+        padding-bottom: 0;
+
+        .comment_icon_container{
+            // border:1px solid blue;
+            border-radius: 50%;
+            padding: 0.5rem;
+
+            .comment_icon{
+                // border:1px solid black;
+                color:black;
+            }
+        }
+    }
+
+    .comment_container{
+        // border: 1px solid red;
+
+        .comment{
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+            padding-left: 0rem;
+            // padding-left: 0;
+            // padding-right: 0;
+            width: 100%;
+            // border:1px solid blue;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+
+
+    }
 
 }
 

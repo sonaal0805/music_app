@@ -2,9 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 
-import Link from 'next/link'
 import './home.scss'
-import axios from 'axios';
 import TrackCard from './components/trackCard/page'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import DetailsCard from './components/detailsCard/page'
@@ -12,9 +10,6 @@ import { Box, ListItemButton, ListItemText, Modal, TextField, Typography } from 
 import SearchBar from './components/searchBar/page';
 import FlipMove from "react-flip-move";
 
-
-
-// const {artistName, collectionName, artworkUrl100} = trackData
 export default function index() {
 
   const [trackList, setTrackList] = useState([])
@@ -24,9 +19,6 @@ export default function index() {
   const [modalOpen, setModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
-  const [searchText, setSearchText] = useState('')
-
-
 
   const isDesktop = useMediaQuery('(min-width:600px)');
 
@@ -35,7 +27,7 @@ export default function index() {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '80%',
+    width: isDesktop? '50%':'80%',
     bgcolor: 'background.paper',
     borderRadius: 5,
     boxShadow: 24,
@@ -44,23 +36,6 @@ export default function index() {
     maxHeight: '90vh',
     overflow:'scroll'
   };
-
-  const filterTrackList = (track) =>{
-
-    if(track.artistName.toLowerCase().includes(searchText.toLowerCase()) || searchText === ''){
-      return true
-    }else{
-      return false
-    }
-
-    // return false
-  }
-
-  const handleChange = (e)=>{
-    const value = e.target.value
-    setSearchText(value)
-    
-  }
 
 
   const fetchTrackList  = async () => {
@@ -71,7 +46,10 @@ export default function index() {
     try{
       await fetch(url)
       .then(res => res.json())
-      .then(data => {setTrackList(data.results);setFinalTrackList(data.results)})
+      .then(data => {
+        setTrackList(data.results);
+        setFinalTrackList(data.results)
+      })
 
     }catch(err){
       console.log(err)
@@ -84,13 +62,6 @@ export default function index() {
   }
 
   useEffect(()=>{
-    const newList = trackList.filter(track => filterTrackList(track))
-    setFinalTrackList(newList)
-  },[searchText])
-
-  
-
-  useEffect(()=>{
     fetchTrackList()
   },[])
 
@@ -100,51 +71,42 @@ export default function index() {
     <div className = 'home_page'>
 
       <div className = 'search_bar'>
-        {/* <SearchBar
+        <SearchBar
           trackList = {trackList}
-          setTrackList = {setTrackList}
-        /> */}
-          <span className = 'logo'>Music app</span>
-
-          <input 
-              className = 'searchInput'
-              value = {searchText}
-              onChange = {(e)=>handleChange(e)}
-          />
+          setFinalTrackList = {setFinalTrackList}
+        />
 
       </div>
 
       <div className = 'content'>
-        <div className = 'track_list'>
+        <div className = 'track_list_container'>
           {
             loading ?
-            <h1>loading...</h1> 
+              <h1>loading...</h1> 
             :
             error ?
 
               <ListItemText primary= {error} sx ={{color:'red'}}/>
-
             :
-            
-            <FlipMove>
 
-                {finalTrackList.map((track,index)=>
-    
-                  <div key = {`track_${index}`}>
-                    <TrackCard 
-                      trackData={track}
-                      setModalData = {setModalData}
-                      setModalOpen = {setModalOpen}
-                    />
-                  </div>
-        
-                )}
-            </FlipMove>
+              <div className = 'track_list'>
+                  {finalTrackList.map((track,index)=>
+      
+                    <div key = {`track_${index}`}>
+                      <TrackCard 
+                        trackData={track}
+                        setModalData = {setModalData}
+                        setModalOpen = {setModalOpen}
+                      />
+                    </div>
+          
+                  )}
+              </div>
             
           }
         </div>
 
-        <div className = "track_details">
+        {/* <div className = "track_details">
 
           {Object.keys(modalData).length > 0? 
             
@@ -156,9 +118,9 @@ export default function index() {
             <h4>Select a track to view details</h4>
           }
 
-        </div>
+        </div> */}
 
-        {!isDesktop &&
+        {/* {isDesktop && */}
 
           <Modal
             open={modalOpen && Object.keys(modalData).length > 0}
@@ -174,7 +136,7 @@ export default function index() {
               />
             </Box>
           </Modal>
-        }
+      
 
       </div>
     </div>

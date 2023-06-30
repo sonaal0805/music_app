@@ -6,14 +6,18 @@ html{
 
 body{
   margin: 0;
+  ::-webkit-scrollbar {
+      display: none;
+    }
 }
 
 .home_page{
   // border:1px solid red;
-  height:100vh;
+  height:95vh;
   // width: 99vw;
   display: flex;
   flex-direction: column;
+  // height: fit-content;
 
   .content{
     max-height: 95%;
@@ -21,18 +25,29 @@ body{
 
     flex: 0.8;
 
-    .track_list{
-      flex: 0.5;
-      // border:1px solid white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-  
-      gap:1rem;
-
+    .track_list_container{
+      flex: 1;
+      
+      // border: 1px solid white;
       max-width: 100%;
+      // height: fit-content;
       max-height: 100%;
-      overflow: scroll;
+      display: flex;
+      justify-content: center;
+
+      .track_list{
+        // border: 1px solid red;
+        width: fit-content;
+        max-width: 100%;
+
+        display: grid;
+        grid-template-columns: repeat(3, 0fr);
+        grid-gap: 30px;
+ 
+        overflow: scroll;        
+        
+      }
+
   
     }
     .track_details {
@@ -51,6 +66,7 @@ body{
   .search_bar{
     // flex:0.2;
     width:100%;
+    max-width: 100%;
     // position: fixed;
     // top:0;
     display: flex;
@@ -60,6 +76,8 @@ body{
     // justify-content: center;
     background-color: rgb(64, 64, 64);
     padding:1rem;
+    padding-left: 0;
+    padding-right: 0;
 
     
  
@@ -74,11 +92,27 @@ body{
   .home_page{
 
     .content{
-      .track_list {
+
+      .track_list_container{
         padding-left: 0rem;
         flex: 1;
         align-items: center;
-    
+        
+        .track_list {
+          // border:1px solid white;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        
+          gap:1rem;
+        
+          max-width: 100%;
+          max-height: 100%;
+          overflow: scroll;
+          width: 100%;
+          
+      
+        }
       }
       .track_details{
         

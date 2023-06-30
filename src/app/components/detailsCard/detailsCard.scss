@@ -1,7 +1,7 @@
 .detailsCard {
 
     border: none;
-    width: 60%;
+    width: 100%;
 
     .track,.collection{
   
@@ -12,8 +12,6 @@
         span{
             font-size: 18px;
         }
-
-      
     }
     .closeButton{
         background-color: rgb(206, 206, 206);
@@ -34,23 +32,38 @@
 
     }
 
+    .expand_button{
+        width: 100%;
+        padding-left: 0;
+        // border: 1px solid blue;
+        padding-top: 0.4rem;
+        padding-bottom: 0.4rem;
+
+    }
+
+    .related_track_btn{
+        // border:1px solid blue;
+        width: 100%;
+        padding-left: 0;
+    }
+
 }
 
 // for medium sized screens
 
-@media only screen and (min-width: 600px) and  (max-width: 900px) {
-    .detailsCard {
-        width: 90%;
-    }
+// @media only screen and (min-width: 600px) and  (max-width: 900px) {
+//     .detailsCard {
+//         width: 100%;
+//     }
 
-}
+// }
 
-// for small sized screens
+// // for small sized screens
 
-@media only screen and (max-width: 600px) {
-    .detailsCard {
-        width: 100%;
-    }
+// @media only screen and (max-width: 600px) {
+//     .detailsCard {
+//         width: 100%;
+//     }
 
-}
+// }
 

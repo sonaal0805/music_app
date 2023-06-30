@@ -6,6 +6,7 @@ import {format} from 'timeago.js'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './comment.scss'
+import { Button } from '@material-ui/core';
 
 export default function Comment({trackId, comment,setComments}) {
 
@@ -29,7 +30,7 @@ export default function Comment({trackId, comment,setComments}) {
 
     if(newComment.text !== ''){
 
-      let exisitingComments = JSON.parse(sessionStorage.getItem(trackId))
+      let exisitingComments = JSON.parse(sessionStorage.getItem(trackId.toString()))
 
       exisitingComments = exisitingComments.map(item => {
 
@@ -41,20 +42,21 @@ export default function Comment({trackId, comment,setComments}) {
       })
 
       exisitingComments.sort((a,b) => b.timestamp - a.timestamp)
+      setComments(exisitingComments)
 
-      sessionStorage.setItem(trackId, JSON.stringify(exisitingComments));
+      sessionStorage.setItem(trackId.toString(), JSON.stringify(exisitingComments));
     }
     setEditing(false)
 
   }
 
   const deleteComment = () =>{
-    let newCommentsList = JSON.parse(sessionStorage.getItem(trackId))
+    let newCommentsList = JSON.parse(sessionStorage.getItem(trackId.toString()))
     newCommentsList = newCommentsList.filter(item => item.id !== newComment.id)
 
     setComments(newCommentsList)
 
-    sessionStorage.setItem(trackId, JSON.stringify(newCommentsList));
+    sessionStorage.setItem(trackId.toString(), JSON.stringify(newCommentsList));
   }
 
   useEffect(()=>{
@@ -64,49 +66,58 @@ export default function Comment({trackId, comment,setComments}) {
 
   return (
 
-      <ListItemButton 
-        sx ={{pl: 0, pr: 0, width:'100%'}} 
-        disableRipple 
-        onMouseEnter={() => setShowOptions(true)}
-        onMouseLeave={() => setShowOptions(false)}
-      >
-        <ListItemAvatar>
-          <Avatar/>
-        </ListItemAvatar>
 
-        {editing? 
-          <TextField 
-            value = {newComment.text}
-            variant = 'standard'
-            multiline
-            color= "warning"
-            onChange={(e)=>handleChange(e)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                editComment()
-              }
-            }}
+    <ListItemButton 
+      // sx ={{pl: 1, pr: 0, width:'100%'}} 
+      
+      disableRipple 
 
-          />
-        :
-          <ListItemText sx = {{maxWidth:'70%', overflow:'hidden'}}primary= {newComment.text}  secondary = {format(newComment.timestamp)}/>
-        }
+      className = 'comment'
 
-        {showOptions &&
-          <>
-            <IconButton onClick = {handleEditBtnClick}>
-              <EditIcon sx ={{fontSize:'medium'}}/>
-            </IconButton>
+      onMouseEnter={() => setShowOptions(true)}
+      onMouseLeave={() => setShowOptions(false)}
+      
+    
+    >
+      <ListItemAvatar className = 'avatar_container'>
+        <Avatar/>
+      </ListItemAvatar>
 
-            <IconButton onClick = {deleteComment}>
-              <DeleteIcon sx ={{fontSize:'medium'}}/>
-            </IconButton>
-          </>
+      {editing? 
+        <TextField 
+          value = {newComment.text}
+          variant = 'standard'
+          multiline
+          color= "warning"
+          onChange={(e)=>handleChange(e)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              editComment()
+            }
+          }}
 
-        }
-        
-      </ListItemButton>
+        />
+      :
+        <ListItemText sx = {{maxWidth:'70%', overflow:'hidden'}} primary= {newComment.text}  secondary = {format(newComment.timestamp)}/>
+      }
+
+      {showOptions &&
+        <div className = 'icons_container'>
+          {/* <Button onClick = {handleEditBtnClick} className = 'edit_icon_button'> */}
+            <EditIcon  onClick = {handleEditBtnClick} className = 'edit_icon' sx ={{fontSize:'medium'}}/>
+          {/* </Button> */}
+
+          {/* <Button onClick = {deleteComment} className = 'delete_icon_button'> */}
+            <DeleteIcon onClick = {deleteComment} className = 'delete_icon' sx ={{fontSize:'medium'}} />
+          {/* </Button> */}
+        </div>
+
+      }
+      
+    </ListItemButton>
+
+
 
   );
 }

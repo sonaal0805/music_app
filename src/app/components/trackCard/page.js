@@ -58,19 +58,30 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
         // console.log('newCommentsList: ',newCommentsList)
         setComments(newCommentsList)
         setComment('')
-        sessionStorage.setItem(trackData.trackId, JSON.stringify(newCommentsList));
+        sessionStorage.setItem(trackData.trackId.toString(), JSON.stringify(newCommentsList));
       }
 
     }
 
     useEffect(()=>{
-      const exisitingComments = JSON.parse(sessionStorage.getItem(trackData.trackId));
+      // console.log('trackId: ',trackData.trackId)
+
+      let exisitingComments = sessionStorage.getItem(trackData.trackId.toString());
+
+      // console.log('exisitingComments: ',exisitingComments)
       if(exisitingComments){
+        exisitingComments = JSON.parse(exisitingComments)
         exisitingComments.sort((a,b) => b.timestamp - a.timestamp)
         setComments(exisitingComments)
       }
 
     },[])
+
+    // useEffect(()=>{
+    //   // console.log('track Id: ',trackData.trackId)
+    //   // console.log('comments: ',comments)
+
+    // },[comments])
 
     return (
 
@@ -83,18 +94,23 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
           alt="track image"
         />
         <CardContent sx ={{pb:0}}>
-          <Typography gutterBottom variant="h6" component="div">
+          <Typography noWrap  variant="h6" component="div">
             {trackData.trackName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {trackData.artistName}
+
           </Typography>
+          {/* <Typography variant="body2" color="text.secondary">
+            
+            {trackData.trackId}
+          </Typography> */}
         </CardContent>
       </CardActionArea>
 
-      <CardActions>
-        <IconButton onClick = {(e)=>handleCommentClick(e)} aria-label="add to favorites">
-          <ModeCommentIcon/>
+      <CardActions className = 'comment_section'>
+        <IconButton className = 'comment_icon_container' onClick = {(e)=>handleCommentClick(e)} aria-label="comment">
+          <ModeCommentIcon className = 'comment_icon'/>
         </IconButton>
       </CardActions>
       
@@ -122,9 +138,9 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
               <FlipMove>
                 {comments?.map((comment, index) =>(
 
-                    <div key = {`comment_${index}`}>
+                    <div key = {`comment_${index}`} className = 'comment_container'>
 
-                      <Comment setComments={setComments} trackId = {trackData.trackId} comment = {comment}/>
+                      <Comment key =  {`comment_${index}`} setComments={setComments} trackId = {trackData.trackId} comment = {comment}/>
                     </div>
 
                 ))}

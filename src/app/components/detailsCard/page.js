@@ -104,19 +104,22 @@ export default function DetailsCard({trackData,setModalData}) {
            
           :
           <>
-            <ListItemButton sx ={{pl: 0}} onClick={handleExapandBtnClick}>
+            <ListItemButton className = 'expand_button' onClick={handleExapandBtnClick}>
               <ListItemText primary="Show Related Tracks" />
               {showRelatedTracks ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
 
-            <Collapse in={showRelatedTracks} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
+            <Collapse 
+              in={showRelatedTracks} 
+              timeout="auto" unmountOnExit
+            >
+              <List component="div">
 
                   {relatedTracks.map((track, index)=>
 
                     <div key = {`related_track_${index}`}>
 
-                      <ListItemButton sx ={{pl: 0}}>
+                      <ListItemButton className = 'related_track_btn'>
                         <ListItemAvatar>
                           <Avatar src = {track.artworkUrl100}/>
                         </ListItemAvatar>
