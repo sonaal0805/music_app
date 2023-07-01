@@ -1,12 +1,15 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import { Avatar, IconButton, ListItemAvatar, ListItemButton, ListItemText, TextField } from '@mui/material';
+import { Avatar, Box, IconButton, ListItemAvatar, ListItemButton, ListItemText, Modal, TextField, Typography } from '@mui/material';
 import {format} from 'timeago.js'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import './comment.scss'
 import { Button } from '@material-ui/core';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 export default function Comment({trackId, comment,setComments}) {
 
@@ -14,6 +17,24 @@ export default function Comment({trackId, comment,setComments}) {
   const [newComment, setNewComment] = useState(comment)
 
   const [showOptions, setShowOptions] = useState(false)
+  const [showFullComment, setShowFullComment] = useState(false)
+  const isDesktop = useMediaQuery('(min-width:600px)');
+
+
+  const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: isDesktop? '50%':'80%',
+    bgcolor: 'background.paper',
+    borderRadius: 5,
+    boxShadow: 24,
+    color:'black',
+    p: 3,
+    maxHeight: '90vh',
+    overflow:'scroll'
+  };
 
   const handleEditBtnClick = () =>{
     setEditing(prev => !prev)
@@ -58,6 +79,14 @@ export default function Comment({trackId, comment,setComments}) {
 
     sessionStorage.setItem(trackId.toString(), JSON.stringify(newCommentsList));
   }
+  const commentInputTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#000000',
+      },
+      
+    },
+  });
 
   useEffect(()=>{
     setNewComment(comment)
@@ -66,56 +95,74 @@ export default function Comment({trackId, comment,setComments}) {
 
   return (
 
+    <>
+      <ListItemButton       
+        disableRipple 
 
-    <ListItemButton 
-      // sx ={{pl: 1, pr: 0, width:'100%'}} 
+        className = 'comment'
+
+        onMouseEnter={() => setShowOptions(true)}
+        onMouseLeave={() => setShowOptions(false)}
+        onClick = {()=>setShowFullComment(true)}
+        
       
-      disableRipple 
+      >
+        <ListItemAvatar className = 'avatar_container'>
+          <Avatar/>
+        </ListItemAvatar>
 
-      className = 'comment'
+        {editing?
+          <ThemeProvider theme={commentInputTheme}>
 
-      onMouseEnter={() => setShowOptions(true)}
-      onMouseLeave={() => setShowOptions(false)}
+            <TextField 
+              value = {newComment?.text}
+              variant = 'standard'
+              multiline
+              color= "primary"
+              onChange={(e)=>handleChange(e)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  editComment()
+                }
+              }}
+            />
+          </ThemeProvider> 
+        :
+          <ListItemText sx = {{ whiteSpace: 'nowrap',maxWidth:'65%', overflow:'scroll', }} primary= {newComment?.text}  secondary = {format(newComment?.timestamp)}/>
+        }
+
+        {showOptions &&
+          <div className = 'icons_container'>
+              <EditIcon  onClick = {handleEditBtnClick} className = 'edit_icon' sx ={{fontSize:'medium'}}/>
+
+              <DeleteIcon onClick = {deleteComment} className = 'delete_icon' sx ={{fontSize:'medium'}} />
+          </div>
+
+        }
+        
+      </ListItemButton>
+
+        <Modal
+          open={showFullComment}
+          onClose={()=>{setShowFullComment(false)}}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={modalStyle}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Comment
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2,wordWrap: 'break-word'}}>
+              {newComment?.text}
+            </Typography>
+          
+          </Box>
+        </Modal>
       
-    
-    >
-      <ListItemAvatar className = 'avatar_container'>
-        <Avatar/>
-      </ListItemAvatar>
+    </>
 
-      {editing? 
-        <TextField 
-          value = {newComment?.text}
-          variant = 'standard'
-          multiline
-          color= "warning"
-          onChange={(e)=>handleChange(e)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-              editComment()
-            }
-          }}
 
-        />
-      :
-        <ListItemText sx = {{maxWidth:'70%', overflow:'hidden'}} primary= {newComment?.text}  secondary = {format(newComment?.timestamp)}/>
-      }
-
-      {showOptions &&
-        <div className = 'icons_container'>
-          {/* <Button onClick = {handleEditBtnClick} className = 'edit_icon_button'> */}
-            <EditIcon  onClick = {handleEditBtnClick} className = 'edit_icon' sx ={{fontSize:'medium'}}/>
-          {/* </Button> */}
-
-          {/* <Button onClick = {deleteComment} className = 'delete_icon_button'> */}
-            <DeleteIcon onClick = {deleteComment} className = 'delete_icon' sx ={{fontSize:'medium'}} />
-          {/* </Button> */}
-        </div>
-
-      }
-      
-    </ListItemButton>
 
 
 

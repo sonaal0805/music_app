@@ -2,9 +2,11 @@
 
     border: none;
     width: 100%;
+    display: flex;
+
 
     .track,.collection{
-  
+    
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -49,21 +51,4 @@
 
 }
 
-// for medium sized screens
-
-// @media only screen and (min-width: 600px) and  (max-width: 900px) {
-//     .detailsCard {
-//         width: 100%;
-//     }
-
-// }
-
-// // for small sized screens
-
-// @media only screen and (max-width: 600px) {
-//     .detailsCard {
-//         width: 100%;
-//     }
-
-// }
 

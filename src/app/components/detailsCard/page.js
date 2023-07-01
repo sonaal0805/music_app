@@ -71,7 +71,7 @@ export default function DetailsCard({trackData,setModalData}) {
         
         <CardMedia
           component="img"
-          sx={{ width: '100%', maxHeight: 500}}
+          sx={{objectFit:'contain', maxHeight: 300}}
           image={trackData?.artworkUrl100}
           alt="track image"
         />
@@ -142,7 +142,8 @@ export default function DetailsCard({trackData,setModalData}) {
 
 
       </CardActionArea>
-      
+
+
     </Card>
 
 

@@ -68,25 +68,39 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
     const commentInputTheme = createTheme({
       palette: {
         primary: {
-          // Purple and green play nicely together.
           main: '#000000',
         },
         
       },
     });
 
-    useEffect(()=>{
-      console.log('trackId: ',trackData.trackId)
+    const fetchComments = () =>{
+      // console.log('trackId: ',trackData.trackId)
 
-      let exisitingComments = sessionStorage.getItem(trackData.trackId.toString());
+      let exisitingComments = sessionStorage.getItem(trackData.trackId.toString())
+      // console.log('exisitingComments: ',exisitingComments)
 
-      console.log('exisitingComments: ',exisitingComments)
       if(exisitingComments){
-
         exisitingComments = JSON.parse(exisitingComments)
         exisitingComments.sort((a,b) => b.timestamp - a.timestamp)
         setComments(exisitingComments)
       }
+
+
+    }
+ 
+
+
+    useEffect(()=>{
+      // console.log('trackId: ',trackData.trackId)
+
+      const timeoutId = setTimeout(() => {
+        fetchComments()
+      }, 1000) 
+      
+      return () => {
+        clearTimeout(timeoutId);
+      };
 
     },[])
 
