@@ -13,6 +13,16 @@
     right: 0;    
 }
 
+.comment_text{
+    .MuiListItemText-primary{
+
+        white-space: nowrap;
+        max-width: 80%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+
 
 
     

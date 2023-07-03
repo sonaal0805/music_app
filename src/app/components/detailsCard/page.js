@@ -60,14 +60,14 @@ export default function DetailsCard({trackData,setModalData}) {
     >
       <CardActionArea disableRipple>
 
-        {isDesktop &&
+        {/* {isDesktop &&
    
           <CloseIcon
             onClick = {()=>setModalData({})}
             className = 'closeButton' 
             sx ={{position : 'absolute', top:1, right: 1}}
           />
-          }
+          } */}
         
         <CardMedia
           component="img"

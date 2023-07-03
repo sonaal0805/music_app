@@ -23,10 +23,6 @@ export default function SearchBar({trackList, setFinalTrackList}) {
         }
     }
 
-    // const search = () =>{
-        
-    // }
-    
     useEffect(()=>{
      
         const newList = trackList.filter(track => filterTrackList(track))

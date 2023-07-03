@@ -1,45 +1,50 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import Box from '@mui/material/Box';
+import React, { useEffect, useRef, useState } from 'react'
+
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
+
 import './trackCard.scss'
 import { CardActionArea, CardActions } from '@material-ui/core';
-import { Avatar, Button, Collapse, List, ListItemAvatar, ListItemButton, ListItemText, TextField } from '@mui/material';
+import {Avatar, Collapse, List, ListItemAvatar, TextField } from '@mui/material';
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
-import {format} from 'timeago.js'
+
 import Comment from '../comment/page';
 import FlipMove from "react-flip-move";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
-
-
 export default function TrackCard({trackData,setModalData,setModalOpen}) {
-    // console.log('trackData: ',trackData)
 
     const [showInput, setShowInput] = useState(false)
     const [comment, setComment] = useState('')
     const [comments, setComments] = useState([])
 
+    const inputRef = useRef(null)
 
-    const handleCardClick = ()=>{
-        // console.log('card clicked..')
-        
+
+    const handleCardClick = ()=>{        
         setModalData(trackData)
         setModalOpen(true)
     }
     const handleCommentClick = (e)=>{
         e.stopPropagation();
+        
+        const timeout = setTimeout(() => {
+          if(!showInput){
+            inputRef.current.focus()
+          }
+        }, 100);
+
         setShowInput(prev => !prev)
 
+        return () => {
+          clearTimeout(timeout);
+        };
     }
 
     const handleChange = (e)=>{
@@ -57,7 +62,6 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
 
         newCommentsList.sort((a,b) => b.timestamp - a.timestamp)
 
-        // console.log('newCommentsList: ',newCommentsList)
         setComments(newCommentsList)
         setComment('')
         sessionStorage.setItem(trackData.trackId.toString(), JSON.stringify(newCommentsList));
@@ -75,10 +79,8 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
     });
 
     const fetchComments = () =>{
-      // console.log('trackId: ',trackData.trackId)
 
       let exisitingComments = sessionStorage.getItem(trackData.trackId.toString())
-      // console.log('exisitingComments: ',exisitingComments)
 
       if(exisitingComments){
         exisitingComments = JSON.parse(exisitingComments)
@@ -92,15 +94,7 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
 
 
     useEffect(()=>{
-      // console.log('trackId: ',trackData.trackId)
-
-      const timeoutId = setTimeout(() => {
-        fetchComments()
-      }, 1000) 
-      
-      return () => {
-        clearTimeout(timeoutId);
-      };
+      fetchComments()
 
     },[])
 
@@ -115,6 +109,10 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
           image={trackData?.artworkUrl100}
           alt="track image"
         />
+        {/* <ListItemAvatar>
+          <Avatar  sx ={{ width:100, height:100}} src = {trackData?.artworkUrl100}/>
+        </ListItemAvatar> */}
+
         <CardContent sx ={{pb:0}}>
           <Typography noWrap  variant="h6" component="div">
             {trackData?.trackName}
@@ -152,7 +150,7 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
                   }}
                   onChange = {(e)=> handleChange(e)}
                   className = 'comment_input'
-                  
+                  inputRef = {inputRef}                  
                   variant = 'standard'
                   multiline
                   color="primary"
@@ -168,7 +166,6 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
                 {comments?.map((comment, index) =>(
 
                     <div key = {`comment_${index}`} className = 'comment_container'>
-
                       <Comment key =  {`comment_${index}`} setComments={setComments} trackId = {trackData?.trackId} comment = {comment}/>
                     </div>
 

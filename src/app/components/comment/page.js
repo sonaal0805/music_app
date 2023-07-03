@@ -36,7 +36,8 @@ export default function Comment({trackId, comment,setComments}) {
     overflow:'scroll'
   };
 
-  const handleEditBtnClick = () =>{
+  const handleEditBtnClick = (e) =>{
+    e.stopPropagation()
     setEditing(prev => !prev)
   }
 
@@ -71,7 +72,8 @@ export default function Comment({trackId, comment,setComments}) {
 
   }
 
-  const deleteComment = () =>{
+  const deleteComment = (e) =>{
+    e.stopPropagation()
     let newCommentsList = JSON.parse(sessionStorage.getItem(trackId.toString()))
     newCommentsList = newCommentsList.filter(item => item.id !== newComment.id)
 
@@ -126,17 +128,23 @@ export default function Comment({trackId, comment,setComments}) {
                   editComment()
                 }
               }}
+              onClick={(e) =>e.stopPropagation()}
             />
           </ThemeProvider> 
         :
-          <ListItemText sx = {{ whiteSpace: 'nowrap',maxWidth:'65%', overflow:'scroll', }} primary= {newComment?.text}  secondary = {format(newComment?.timestamp)}/>
+          <ListItemText 
+            className = 'comment_text'
+            primary= {newComment?.text}  
+            secondary = {format(newComment?.timestamp)}
+            />
+
         }
 
         {showOptions &&
           <div className = 'icons_container'>
-              <EditIcon  onClick = {handleEditBtnClick} className = 'edit_icon' sx ={{fontSize:'medium'}}/>
+              <EditIcon  onClick = {(e)=> handleEditBtnClick(e)} className = 'edit_icon' sx ={{fontSize:'medium'}}/>
 
-              <DeleteIcon onClick = {deleteComment} className = 'delete_icon' sx ={{fontSize:'medium'}} />
+              <DeleteIcon onClick = {(e)=> deleteComment(e)} className = 'delete_icon' sx ={{fontSize:'medium'}} />
           </div>
 
         }
@@ -153,9 +161,14 @@ export default function Comment({trackId, comment,setComments}) {
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Comment
             </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2,wordWrap: 'break-word'}}>
+            {/* <Typography id="modal-modal-description" sx={{ mt: 2,wordWrap: 'break-word'}}>
               {newComment?.text}
             </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2,wordWrap: 'break-word'}}>
+              {format(newComment?.timestamp)}
+            </Typography> */}
+            <ListItemText primary= {newComment?.text}  secondary = {format(newComment?.timestamp)}/>
+
           
           </Box>
         </Modal>

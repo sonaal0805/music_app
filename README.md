@@ -1,20 +1,20 @@
-Title: Music List
+# Music List #
 
-Packagae choices:
+## Packagae choices: ##
 
 1. Built using React based NextJS framework: NextJs because it is much the framework makes it much easier to scale the app. 
 2. Mui: Very matured and stable library for styling. Easy and intuitive to use. Significantly reduces the need to write css
 3. react-flip-move: for animation when objects in a list change.
 4. timeago.js: To covert review timestamps to a duration from current timestamp
 
-Steps to run the app:
+ ## Steps to run the app:  ##
 
 1. Install node version 18.7.0
 2. Run: npm install
 3. Run: npm run dev
 
 
-Improvements:
+ ## Improvements: ##
 
 1. Search Feature: Users should be able to search tracks using collection name, artist name, track name.
 2. User registration and authentication: Can be used to personalise track list and facilitate interaction among users
@@ -24,7 +24,7 @@ Improvements:
 6. I would have liked for the reviews to be opened up in a dedicated modal, making it easier for users to post and view larger reviews.
 
 
-Production Consideration:
+ ## Production Consideration: ##
 
 
 1. build the app by running the following command:
@@ -33,8 +33,8 @@ Production Consideration:
 
 
 
-Assumptions: 
+ ## Assumptions:  ##
 
 1. Browser has the following extension installed and activated to avoid CORS errors:
 
-    https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf
+    * https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf *
