@@ -10,7 +10,7 @@ import FlipMove from "react-flip-move";
 
 import DetailsCard from '../detailsCard/detailsCard'
 import TrackCard from '../trackCard/trackCard'
-import SearchBar from '../searchBar/SearchBar'
+import SearchBar from '../searchBar/searchBar'
 
 export default function HomePage({trackList}) {
 
