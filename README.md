@@ -2,16 +2,16 @@
 
 ## Packagae choices: ##
 
-1. Built using React based NextJS framework: NextJs because it is much the framework makes it much easier to scale the app. 
-2. Mui: Very matured and stable library for styling. Easy and intuitive to use. Significantly reduces the need to write css
-3. react-flip-move: for animation when objects in a list change.
-4. timeago.js: To covert review timestamps to a duration from current timestamp
+1. Built using React based NextJS framework: NextJS because it makes it much easier to scale the app.
+2. Mui: A mature and stable library for styling. It is easy and intuitive to use and significantly reduces the need to write CSS.
+3. react-flip-move: Used for animation when objects in a list change.
+4. timeago.js: Used to convert review timestamps to a duration from the current timestamp.
 
  ## Steps to run the app:  ##
 
 1. Install node version 18.7.0
-2. Run: npm install
-3. Run: npm run dev
+2. `npm install`
+3. `npm run dev`
 
 
  ## Improvements: ##
@@ -37,4 +37,4 @@
 
 1. Browser has the following extension installed and activated to avoid CORS errors:
 
-    * https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf *
+    https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf
