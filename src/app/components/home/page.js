@@ -8,9 +8,9 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { Box, Modal} from '@mui/material'
 import FlipMove from "react-flip-move";
 
-import SearchBar from '../searchBar/page';
-import DetailsCard from '../detailsCard/page'
-import TrackCard from '../trackCard/page'
+import DetailsCard from '../detailsCard/detailsCard'
+import TrackCard from '../trackCard/trackCard'
+import SearchBar from '../searchBar/SearchBar'
 
 export default function HomePage({trackList}) {
 

@@ -13,7 +13,7 @@ import { CardActionArea, CardActions } from '@material-ui/core';
 import {Avatar, Collapse, List, ListItemAvatar, TextField } from '@mui/material';
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 
-import Comment from '../comment/page';
+import Comment from '../comment/comment';
 import FlipMove from "react-flip-move";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 

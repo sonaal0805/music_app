@@ -34,6 +34,7 @@ export default function SearchBar({trackList, setFinalTrackList}) {
 
     <>
         <span className = 'logo'>ML</span>
+      
 
         <div className = 'input_container'>
             <SearchIcon sx = {{fontSize : 'medium'}}/>

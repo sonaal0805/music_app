@@ -17,11 +17,10 @@
  ## Improvements: ##
 
 1. Search Feature: Users should be able to search tracks using collection name, artist name, track name.
-2. User registration and authentication: Can be used to personalise track list and facilitate interaction among users
-3. Like Feature: Users can keep a list of their favorite tracks. This feature can help in the personalosation as well.
+2. User Registration and Authentication: Can be used to personalize track lists and facilitate interaction among users.
+3. Like Feature: Users can keep a list of their favorite tracks. This feature can help in personalization as well.
 4. Better quality images
-5. Proper server-side database: Currenly with only 50 tracks and just one user, we don't need a proper database. But we would obviously need a properly database to scale the app. 
-6. I would have liked for the reviews to be opened up in a dedicated modal, making it easier for users to post and view larger reviews.
+5. Proper Server-side Database: Currently, with only 50 tracks and just one user, we don't need a proper database. But we would obviously need a proper database to scale the app.
 
 
  ## Production Consideration: ##
