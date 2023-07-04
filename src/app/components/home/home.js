@@ -5,7 +5,6 @@ import '../../home.scss'
 
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { Box, Modal } from '@mui/material'
-import FlipMove from "react-flip-move";
  
 import DetailsCard from '../detailsCard/detailsCard'
 import TrackCard from '../trackCard/trackCard'
@@ -14,7 +13,7 @@ import SearchBar from '../searchBar/searchBar'
 export default function HomePage({trackList}) {
 
 
-  const isTablet = useMediaQuery('(min-width:600px)');
+  const isAtLeastTablet = useMediaQuery('(min-width:600px)')
 
   const [finalTrackList, setFinalTrackList] = useState(trackList)
 
@@ -26,7 +25,7 @@ export default function HomePage({trackList}) {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      width: isTablet? '50%':'80%',
+      width: isAtLeastTablet? '50%':'80%',
       bgcolor: 'background.paper',
       borderRadius: 5,
       boxShadow: 24,

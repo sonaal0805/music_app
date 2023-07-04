@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import './searchBar.scss'
 
 import { Box, TextField, Typography } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from '@mui/icons-material/Search'
 
 export default function SearchBar({trackList, setFinalTrackList}) {
 

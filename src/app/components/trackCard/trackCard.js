@@ -8,9 +8,7 @@ import { CardActionArea, CardActions } from '@material-ui/core'
 import ModeCommentIcon from '@mui/icons-material/ModeComment'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-
 import Comment from '../comment/comment'
-import FlipMove from "react-flip-move"
 
 
 export default function TrackCard({trackData,setModalData,setModalOpen}) {
@@ -29,13 +27,13 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
         setModalOpen(true)
     }
     const handleCommentClick = (e)=>{
-        e.stopPropagation();
+        e.stopPropagation()
         
         const timeout = setTimeout(() => {
           if(!showInput){
             inputRef.current.focus()
           }
-        }, 100);
+        }, 100)
 
         setShowInput(prev => !prev)
 
@@ -44,8 +42,8 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
         }
 
         return () => {
-          clearTimeout(timeout);
-        };
+          clearTimeout(timeout)
+        }
     }
 
     const handleChange = (e)=>{
@@ -75,7 +73,7 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
         setComment('')
         setCommentError('')
         setCommentLength(0)
-        sessionStorage.setItem(trackData.trackId.toString(), JSON.stringify(newCommentsList));
+        sessionStorage.setItem(trackData.trackId.toString(), JSON.stringify(newCommentsList))
       }else{
         if(commentLength === 0){
           setCommentError('Review cannot be empty')
@@ -93,7 +91,7 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
         },
         
       },
-    });
+    })
 
     const fetchComments = () =>{
 
@@ -187,5 +185,5 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
         </Collapse>
       </CardActions>
     </Card>
-  );
+  )
 }

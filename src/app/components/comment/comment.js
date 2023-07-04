@@ -1,13 +1,13 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import './comment.scss'
 
-import { Avatar, Box, Button, ListItemAvatar, ListItemButton, ListItemText, Modal, TextField, Typography } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { Avatar, Box, Button, ListItemAvatar, ListItemButton, ListItemText, Modal, TextField, Typography } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 import {format} from 'timeago.js'
 
@@ -23,7 +23,9 @@ export default function Comment({trackId, comment,setComments}) {
 
   const [showOptions, setShowOptions] = useState(false)
   const [showFullComment, setShowFullComment] = useState(false)
-  const isDesktop = useMediaQuery('(min-width:1400px)');
+
+  const isDesktop = useMediaQuery('(min-width:1400px)')
+  const isTablet = useMediaQuery('(min-width:601px) and (max-width: 1399px)')
 
 
   const modalStyle = {
@@ -31,7 +33,7 @@ export default function Comment({trackId, comment,setComments}) {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: isDesktop? '50%':'80%',
+    width: isDesktop ? '50%': isTablet? '60%': '80%',
     bgcolor: 'background.paper',
     borderRadius: 5,
     boxShadow: 24,
@@ -39,7 +41,7 @@ export default function Comment({trackId, comment,setComments}) {
     p: 3,
     maxHeight: '90vh',
     overflow:'scroll'
-  };
+  }
 
   const buttonTheme = createTheme({
     palette: {
@@ -48,7 +50,7 @@ export default function Comment({trackId, comment,setComments}) {
       },
       
     },
-  });
+  })
 
   const commentInputTheme = createTheme({
     palette: {
@@ -56,7 +58,7 @@ export default function Comment({trackId, comment,setComments}) {
         main: '#000000',
         },
       },
-  });
+  })
 
   const handleEditBtnClick = (e) =>{
     e.stopPropagation()
@@ -108,7 +110,7 @@ export default function Comment({trackId, comment,setComments}) {
       setEditing(false)
       setCommentError('')
       setCommentLength(0)
-      sessionStorage.setItem(trackId.toString(), JSON.stringify(exisitingComments));
+      sessionStorage.setItem(trackId.toString(), JSON.stringify(exisitingComments))
 
     }else{
       if(commentLength === 0){
@@ -130,7 +132,7 @@ export default function Comment({trackId, comment,setComments}) {
     setEditing(false)
     setShowDeleteModal(false)
 
-    sessionStorage.setItem(trackId.toString(), JSON.stringify(newCommentsList));
+    sessionStorage.setItem(trackId.toString(), JSON.stringify(newCommentsList))
   }
 
   useEffect(()=>{
@@ -234,5 +236,5 @@ export default function Comment({trackId, comment,setComments}) {
       
     </>
 
-  );
+  )
 }
