@@ -23,7 +23,7 @@ export default function Comment({trackId, comment,setComments}) {
 
   const [showOptions, setShowOptions] = useState(false)
   const [showFullComment, setShowFullComment] = useState(false)
-  const isDesktop = useMediaQuery('(min-width:600px)');
+  const isDesktop = useMediaQuery('(min-width:1000px)');
 
 
   const modalStyle = {
@@ -133,9 +133,6 @@ export default function Comment({trackId, comment,setComments}) {
     sessionStorage.setItem(trackId.toString(), JSON.stringify(newCommentsList));
   }
 
-
-
-
   useEffect(()=>{
     setNewComment(comment)
   },[comment])
@@ -188,9 +185,8 @@ export default function Comment({trackId, comment,setComments}) {
 
         {(showOptions || !isDesktop) &&
           <div className = 'icons_container'>
-              <EditIcon  onClick = {(e)=> handleEditBtnClick(e)} className = 'edit_icon' sx ={{fontSize:'medium'}}/>
-
-              <DeleteIcon onClick = {(e)=> handleDeleteBtnClick(e)} className = 'delete_icon' sx ={{fontSize:'medium'}} />
+              <EditIcon onClick = {(e)=> handleEditBtnClick(e)} sx ={{fontSize:'medium'}}/>
+              <DeleteIcon onClick = {(e)=> handleDeleteBtnClick(e)} sx ={{fontSize:'medium'}} />
           </div>
         }
         
@@ -222,19 +218,12 @@ export default function Comment({trackId, comment,setComments}) {
             Are you sure you want to delete this review?
           </Typography>
 
-          <Box
-           sx ={{
-            marginTop:'1rem',
-            display: 'flex',
-            justifyContent:'center'
-        
-           }}
-          >
-            <ThemeProvider theme = {buttonTheme}>
-              <Button color = "primary" variant="outlined" onClick = {deleteComment}>Yes</Button>
-              <Button color = "primary" variant="outlined" onClick = {()=>setShowDeleteModal(false)}>No</Button>
-            </ThemeProvider>
+          <Box className = 'delete_modal_button_conatiner'>
 
+            <ThemeProvider theme = {buttonTheme}>
+              <Button color = "primary" variant="text" onClick = {deleteComment}>Yes</Button>
+              <Button color = "primary" variant="text" onClick = {()=>setShowDeleteModal(false)}>No</Button>
+            </ThemeProvider>
           </Box>
 
         </Box>

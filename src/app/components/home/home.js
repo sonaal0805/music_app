@@ -14,7 +14,7 @@ import SearchBar from '../searchBar/searchBar'
 export default function HomePage({trackList}) {
 
 
-  const isDesktop = useMediaQuery('(min-width:600px)');
+  const isTablet = useMediaQuery('(min-width:600px)');
 
   const [finalTrackList, setFinalTrackList] = useState(trackList)
 
@@ -26,7 +26,7 @@ export default function HomePage({trackList}) {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      width: isDesktop? '50%':'80%',
+      width: isTablet? '50%':'80%',
       bgcolor: 'background.paper',
       borderRadius: 5,
       boxShadow: 24,
