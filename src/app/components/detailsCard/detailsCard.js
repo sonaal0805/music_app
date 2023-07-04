@@ -55,7 +55,7 @@ export default function DetailsCard({trackData}) {
         
         <CardMedia
           component="img"
-          sx={{objectFit:'contain'}}
+          sx={{objectFit:'contain', maxHeight: 300}}
           image={trackData?.artworkUrl100}
           alt="track-image"
         />
