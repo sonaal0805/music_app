@@ -33,7 +33,7 @@ export default function HomePage({trackList}) {
       p: 0,
       maxHeight: '90vh',
       overflow:'scroll'
-  };
+  }
 
   return (
      <div className = 'home_page'>

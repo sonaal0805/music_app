@@ -162,6 +162,7 @@ export default function Comment({trackId, comment,setComments}) {
             <TextField 
               value = {newComment?.text}
               variant = 'standard'
+              sx = {{width: '60%'}}
               multiline
               error = {commentError === '' ? false: true}
               helperText = {commentError === '' ? `${commentLength} / 600` :commentError}
