@@ -23,7 +23,7 @@ export default function Comment({trackId, comment,setComments}) {
 
   const [showOptions, setShowOptions] = useState(false)
   const [showFullComment, setShowFullComment] = useState(false)
-  const isDesktop = useMediaQuery('(min-width:1000px)');
+  const isDesktop = useMediaQuery('(min-width:1400px)');
 
 
   const modalStyle = {

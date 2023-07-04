@@ -1,6 +1,6 @@
 # Music List #
 
-## Package choices: ##
+## Package Choices: ##
 
 1. Built using React based NextJS framework: NextJS offers various features, such as image optimization, simplified routing techniques, and server-side components, that make scaling the app significantly easier.
 2. Mui: A mature and stable library for styling. It is easy and intuitive to use and significantly reduces the need to write CSS.
@@ -27,7 +27,7 @@
 8. Testing Script: In order to eliminate bugs, it's important to conduct both unit and end-to-end testing. Tools such as Jest can be used to automate this process.
 
 
- ## Production Consideration: ##
+ ## Production Considerations: ##
 
 1. There is a peer dependency conflict between react and material ui. To avoid this conflict during deployment, use the following command to install the dependencies
     `npm install --legacy-peer-deps`
