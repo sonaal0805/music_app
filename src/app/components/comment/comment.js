@@ -167,7 +167,7 @@ export default function Comment({trackId, comment,setComments}) {
 
         }
 
-        {showOptions || !isDesktop &&
+        {(showOptions || !isDesktop) &&
           <div className = 'icons_container'>
               <EditIcon  onClick = {(e)=> handleEditBtnClick(e)} className = 'edit_icon' sx ={{fontSize:'medium'}}/>
 
