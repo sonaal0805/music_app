@@ -116,8 +116,7 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
       <CardActionArea onClick={handleCardClick}>
         <CardMedia
           component="img"
-          // sx={{ width: '100%'}}
-          sx={{width: '100%', objectFit:'contain', maxHeight: 300}}
+          sx={{width: '100%', height: 270}}
           image={trackData?.artworkUrl100}
           alt="track image"
         />
