@@ -10,7 +10,7 @@
  ## Steps to run the app:  ##
 
 1. Install node version 18.7.0
-2. Install the required packages by running: 
+2. Install the required dependencies by running: 
     `npm install`
 3. Run the development environment by running:
     `npm run dev`
@@ -28,8 +28,8 @@
 
  ## Production Consideration: ##
 
-
-1. Security: We should use HTTPS
+1. There is a peer dependency conflict between react and material ui. To avoid this conflict during deployment, use the following command to install the dependencies
+    `npm install --legacy-peer-deps`
 2. Backup and Recovery: We should have a backup and recovery plan in place in case of data loss or system failure. 
 
  ## Assumptions:  ##
