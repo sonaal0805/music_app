@@ -14,9 +14,9 @@ export default function DetailsCard({trackData}) {
   const [error, setError] = useState(false)
 
   const millisToMinutesAndSeconds = (millis) => {
-      const minutes = Math.floor(millis / 60000);
-      const seconds = ((millis % 60000) / 1000).toFixed(0);
-      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+      const minutes = Math.floor(millis / 60000)
+      const seconds = ((millis % 60000) / 1000).toFixed(0)
+      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds
   }
 
   const fetchRelatedTracks = async () =>{
@@ -55,7 +55,7 @@ export default function DetailsCard({trackData}) {
         
         <CardMedia
           component="img"
-          sx={{objectFit:'contain', maxHeight: 300}}
+          sx={{objectFit:'contain'}}
           image={trackData?.artworkUrl100}
           alt="track-image"
         />

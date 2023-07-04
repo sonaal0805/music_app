@@ -112,7 +112,7 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
 
     return (
 
-    <Card className = 'trackCard' >
+    <Card className = 'trackCard'>
       <CardActionArea onClick={handleCardClick}>
         <CardMedia
           component="img"
