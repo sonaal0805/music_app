@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import './comment.scss'
 
-import { Avatar, Box, ListItemAvatar, ListItemButton, ListItemText, Modal, TextField, Typography } from '@mui/material';
+import { Avatar, Box, Button, ListItemAvatar, ListItemButton, ListItemText, Modal, TextField, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -17,6 +17,7 @@ export default function Comment({trackId, comment,setComments}) {
 
   const [editing, setEditing] = useState(false)
   const [newComment, setNewComment] = useState(comment)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [commentError, setCommentError] = useState('') 
   const [commentLength, setCommentLength] = useState(0)
 
@@ -40,10 +41,34 @@ export default function Comment({trackId, comment,setComments}) {
     overflow:'scroll'
   };
 
+  const buttonTheme = createTheme({
+    palette: {
+      primary: {
+        main: '#000000',
+      },
+      
+    },
+  });
+
+  const commentInputTheme = createTheme({
+    palette: {
+      primary: {
+        main: '#000000',
+        },
+      },
+  });
+
   const handleEditBtnClick = (e) =>{
     e.stopPropagation()
     setEditing(prev => !prev)
     setCommentLength(newComment.text.length)
+  }
+
+  const handleDeleteBtnClick = (e) =>{
+    e.stopPropagation()
+    setShowDeleteModal(true)
+
+
   }
 
   const handleChange = (e) =>{
@@ -96,26 +121,20 @@ export default function Comment({trackId, comment,setComments}) {
 
   }
 
-  const deleteComment = (e) =>{
-    e.stopPropagation()
-
+  const deleteComment = () =>{
+    
     let newCommentsList = JSON.parse(sessionStorage.getItem(trackId.toString()))
     newCommentsList = newCommentsList.filter(item => item.id !== newComment.id)
 
     setComments(newCommentsList)
     setEditing(false)
+    setShowDeleteModal(false)
 
     sessionStorage.setItem(trackId.toString(), JSON.stringify(newCommentsList));
   }
 
 
-  const commentInputTheme = createTheme({
-    palette: {
-      primary: {
-        main: '#000000',
-        },
-      },
-  });
+
 
   useEffect(()=>{
     setNewComment(comment)
@@ -132,7 +151,7 @@ export default function Comment({trackId, comment,setComments}) {
         className = 'comment'
         onMouseEnter={() => setShowOptions(true)}
         onMouseLeave={() => setShowOptions(false)}
-        onClick = {()=>setShowFullComment(true)}
+        onClick = {()=> setShowFullComment(true)}
   
       >
         <ListItemAvatar className = 'avatar_container'>
@@ -171,7 +190,7 @@ export default function Comment({trackId, comment,setComments}) {
           <div className = 'icons_container'>
               <EditIcon  onClick = {(e)=> handleEditBtnClick(e)} className = 'edit_icon' sx ={{fontSize:'medium'}}/>
 
-              <DeleteIcon onClick = {(e)=> deleteComment(e)} className = 'delete_icon' sx ={{fontSize:'medium'}} />
+              <DeleteIcon onClick = {(e)=> handleDeleteBtnClick(e)} className = 'delete_icon' sx ={{fontSize:'medium'}} />
           </div>
         }
         
@@ -193,6 +212,36 @@ export default function Comment({trackId, comment,setComments}) {
           />
         </Box>
       </Modal>
+
+      <Modal
+        open={showDeleteModal}
+        onClose={()=>{setShowDeleteModal(false)}}
+      >
+        <Box sx={modalStyle}>
+          <Typography sx = {{textAlign:'center'}}id="modal-modal-title" variant="h6" component="h2">
+            Are you sure you want to delete this review?
+          </Typography>
+
+          <Box
+           sx ={{
+            marginTop:'1rem',
+            display: 'flex',
+            justifyContent:'center'
+        
+           }}
+          >
+            <ThemeProvider theme = {buttonTheme}>
+              <Button color = "primary" variant="outlined" onClick = {deleteComment}>Yes</Button>
+              <Button color = "primary" variant="outlined" onClick = {()=>setShowDeleteModal(false)}>No</Button>
+            </ThemeProvider>
+
+          </Box>
+
+        </Box>
+
+      </Modal>
+
+      
       
     </>
 
