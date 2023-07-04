@@ -1,5 +1,5 @@
 import React from 'react'
-import HomePage from './components/home/page'
+import HomePage from './components/home/home'
 
 const fetchTrackList  = async () => {
 

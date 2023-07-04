@@ -1,8 +1,9 @@
 'use client'
 
-import { Avatar, Card, CardActionArea, CardContent, CardMedia, Collapse, IconButton, List, ListItemAvatar, ListItemButton, ListItemText, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import './detailsCard.scss'
+
+import { Avatar, Card, CardActionArea, CardContent, CardMedia, Collapse, List, ListItemAvatar, ListItemButton, ListItemText, Typography } from '@mui/material'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import moment from 'moment'
 
@@ -56,34 +57,39 @@ export default function DetailsCard({trackData}) {
           component="img"
           sx={{objectFit:'contain', maxHeight: 300}}
           image={trackData?.artworkUrl100}
-          alt="track image"
+          alt="track-image"
         />
 
         <CardContent>
 
           <Typography className = 'track' gutterBottom variant="h6" component="div">
-            {trackData?.trackName} <span>{`$${trackData?.trackPrice}`}</span>
+            {trackData?.trackName || 'N/A'} 
+            <span className = 'price'>{`US$${trackData?.trackPrice}`}</span>
           </Typography>
 
           <Typography className = 'collection' variant="body2">
-            Collection: {trackData?.collectionName}
-            <span>{`$${trackData?.collectionPrice}`}</span>
+            Collection: {trackData?.collectionName || 'N/A'}
+            <span className = 'price'>{`US$${trackData?.collectionPrice}`}</span>
           </Typography>
 
           <Typography variant="body2" color="text.secondary">
-            Artist: {trackData?.artistName}
+            Artist: {trackData?.artistName || 'N/A'}
           </Typography>
 
           <Typography variant="body2" color="text.secondary">
-            Duration: {millisToMinutesAndSeconds(trackData?.trackTimeMillis)}
+            Duration: {trackData?.trackTimeMillis ? millisToMinutesAndSeconds(trackData?.trackTimeMillis): 'N/A'}
           </Typography>
 
           <Typography variant="body2" color="text.secondary">
-            Released on: {moment(trackData?.releaseDate).format('MMM Do YYYY')}
+            Released on: {trackData?.releaseDate ? moment(trackData?.releaseDate).format('MMM Do YYYY'): 'N/A'}
           </Typography>
 
           <Typography variant="body2" color="text.secondary">
-            Genre: {trackData?.primaryGenreName}
+            Genre: {trackData?.primaryGenreName || 'N/A'}
+          </Typography>
+
+           <Typography variant="body2" color="text.secondary">
+            Country: {trackData?.country|| 'N/A'}
           </Typography>
 
           {error? 
@@ -106,15 +112,22 @@ export default function DetailsCard({trackData}) {
 
                     <div key = {`related_track_${index}`}>
 
-                      <ListItemButton className = 'related_track_btn'>
-                        <ListItemAvatar>
-                          <Avatar src = {track?.artworkUrl100}/>
-                        </ListItemAvatar>
-                        
-                        <ListItemText primary= {track?.collectionName}  secondary = {track?.primaryGenreName}/>
-                        
-                      </ListItemButton>
-                    </div>
+                        {track.collectionName && track.primaryGenreName &&
+
+                          <ListItemButton className = 'related_track_btn'>
+
+                            <ListItemAvatar>
+                              <Avatar src = {track?.artworkUrl100}/>
+                            </ListItemAvatar>
+
+                            <ListItemText 
+                              primary= {track?.collectionName}  
+                              secondary = {track?.primaryGenreName}
+                            />
+              
+                          </ListItemButton>
+                        }
+                      </div>
                   )}
               </List>
             </Collapse>

@@ -1,21 +1,16 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-
 import './trackCard.scss'
-import { CardActionArea, CardActions } from '@material-ui/core';
-import {Avatar, Collapse, List, ListItemAvatar, TextField } from '@mui/material';
-import ModeCommentIcon from '@mui/icons-material/ModeComment';
 
-import Comment from '../comment/comment';
-import FlipMove from "react-flip-move";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Card, CardContent, CardMedia, IconButton, Typography, Collapse, List, TextField } from '@mui/material'
+import { CardActionArea, CardActions } from '@material-ui/core'
+import ModeCommentIcon from '@mui/icons-material/ModeComment'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+
+
+import Comment from '../comment/comment'
+import FlipMove from "react-flip-move"
 
 
 export default function TrackCard({trackData,setModalData,setModalOpen}) {
@@ -128,7 +123,6 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
           alt="track image"
         />
    
-
         <CardContent sx ={{pb:0}}>
           <Typography noWrap  variant="h6" component="div">
             {trackData?.trackName}
@@ -148,9 +142,10 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
       
       <CardActions>
         <Collapse 
-        sx ={{ maxHeight:300, width:'100%', overflowY:'scroll'}}  
-        in = {showInput} 
-        timeout="auto">
+          sx ={{ maxHeight:300, width:'100%', overflowY:'scroll'}}  
+          in = {showInput} 
+          timeout="auto"
+        >
           <>
             <ThemeProvider theme={commentInputTheme}>
                 <TextField
@@ -163,7 +158,6 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
                   error = {commentError === ''?false:true}
                   helperText = {commentError === '' ? `${commentLength} / 600` :commentError}
                   onChange = {(e)=> handleChange(e)}
-                  className = 'comment_input'
                   inputRef = {inputRef}                  
                   variant = 'standard'
                   multiline
@@ -176,15 +170,18 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
 
             </ThemeProvider>
             <List component="div" disablePadding>
-              <FlipMove>
+              <div>
                 {comments?.map((comment, index) =>(
-
                     <div key = {`comment_${index}`} className = 'comment_container'>
-                      <Comment key =  {`comment_${index}`} setComments={setComments} trackId = {trackData?.trackId} comment = {comment}/>
+                      <Comment 
+                        key =  {`comment_${index}`} 
+                        setComments={setComments} 
+                        trackId = {trackData?.trackId} 
+                        comment = {comment}
+                      />
                     </div>
-
                 ))}
-              </FlipMove>
+              </div>
             </List>
           </>
         </Collapse>

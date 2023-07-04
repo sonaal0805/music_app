@@ -1,11 +1,10 @@
 'use client'
 
 import React, { useState } from 'react'
-
 import '../../home.scss'
 
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { Box, Modal} from '@mui/material'
+import { Box, Modal } from '@mui/material'
 import FlipMove from "react-flip-move";
  
 import DetailsCard from '../detailsCard/detailsCard'
@@ -51,8 +50,7 @@ export default function HomePage({trackList}) {
         <div className = 'content'>
           <div className = 'track_list_container'>
           {
-              
-            <FlipMove className = 'track_list'>
+            <div className = 'track_list'>
                 {finalTrackList?.map((track,index)=>
     
                 <div key = {`track_${index}`}>
@@ -64,7 +62,7 @@ export default function HomePage({trackList}) {
                 </div>
         
                 )}
-            </FlipMove>
+            </div>
               
           }
           </div>
@@ -74,8 +72,6 @@ export default function HomePage({trackList}) {
         <Modal
           open={modalOpen && Object.keys(modalData).length > 0}
           onClose={()=>{setModalOpen(false)}}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
         >
           <Box sx={modalStyle}>
             <DetailsCard 

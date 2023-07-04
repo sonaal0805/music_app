@@ -8,47 +8,27 @@
     max-height: 100%;
     overflow-y: scroll;
 
-
     .track,.collection{
     
         display: flex;
         justify-content: space-between;
         align-items: center;
 
-        span{
-            font-size: 18px;
+        .price{
+            font-size: 14px;
         }
     }
-    .closeButton{
-        background-color: rgb(206, 206, 206);
-        position: 'absolute';
-        top:1;
-        right: 1;
-        color: black;
-        border-radius: 50%;
-        padding: 3px;
-
-        font-size: 20px;
-        &:hover{
-            background-color: rgb(57, 57, 57);
-            color: white;
-            transition: all 0.1s;
-            
-        }
-
-    }
+    
 
     .expand_button{
         width: 100%;
         padding-left: 0;
-        // border: 1px solid blue;
         padding-top: 0.4rem;
         padding-bottom: 0.4rem;
 
     }
 
     .related_track_btn{
-        // border:1px solid blue;
         width: 100%;
         padding-left: 0;
     }

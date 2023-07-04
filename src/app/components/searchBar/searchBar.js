@@ -36,7 +36,7 @@ export default function SearchBar({trackList, setFinalTrackList}) {
         <span className = 'logo'>ML</span>
       
 
-        <div className = 'input_container'>
+        {/* <div className = 'input_container'>
             <SearchIcon sx = {{fontSize : 'medium'}}/>
             <input 
                 className = 'searchInput'
@@ -45,7 +45,7 @@ export default function SearchBar({trackList, setFinalTrackList}) {
                 placeholder="Search By Artist Name"
               
             />
-        </div>
+        </div> */}
 
 
     </>

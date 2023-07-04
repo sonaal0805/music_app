@@ -1,5 +1,4 @@
 
-
 .icons_container{
     display: flex;
     gap:0.5rem;
@@ -9,15 +8,12 @@
 
 .comment_text{
     .MuiListItemText-primary{
-
         white-space: nowrap;
         max-width: 80%;
         text-overflow: ellipsis;
         overflow: hidden;
     }
 }
-
-
 
 .modal_comment_text {
     .MuiListItemText-primary {

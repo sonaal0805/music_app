@@ -1,11 +1,10 @@
 # Music List #
 
-## Packagae choices: ##
+## Package choices: ##
 
-1. Built using React based NextJS framework: NextJS because it makes it much easier to scale the app.
+1. Built using React based NextJS framework: NextJS offers various features, such as image optimization, simplified routing techniques, and server-side components, that make scaling the app significantly easier.
 2. Mui: A mature and stable library for styling. It is easy and intuitive to use and significantly reduces the need to write CSS.
-3. react-flip-move: Used for animation when objects in a list change.
-4. timeago.js: Used to convert review timestamps to a duration from the current timestamp.
+3. timeago.js: Used to convert review timestamps to a duration from the current timestamp.
 
  ## Steps to run the app:  ##
 
@@ -18,12 +17,14 @@
 
  ## Improvements: ##
 
-1. Search Feature: Users should be able to search tracks using collection name, artist name, track name.
-2. User Registration and Authentication: Can be used to personalize track lists and facilitate interaction among users.
-3. Like Feature: Users can keep a list of their favorite tracks. This feature can help in personalization as well.
-4. Better quality images
-5. Proper Server-side Database: Currently, with only 50 tracks and just one user, we don't need a proper database. But we would obviously need a proper database to scale the app.
-6. Allowing users to edit a comment directly from the comment modal. 
+1. Search Feature: The search feature should allow users to search for tracks using the collection name, artist name, and track name.
+2. User Registration and Authentication: User registration and authentication should be implemented to enable personalization of track lists and facilitate interaction among users.
+3. Like Feature: The "like" feature should be implemented so that users can create and maintain a list of their favorite tracks, which can aid in personalization.
+4. High-quality Images: High-quality images should be provided to enhance the overall user experience.
+5. Server-side database: A proper server-side database will be necessary to scale the app as it grows beyond its current size of 50 tracks and one user.
+6. Edit from Comment Modal: Users should be able to edit comments directly from the comment modal for improved usability.
+7. PWA Implementation: Implementing PWA can enhance the user experience and leverage the features of native mobile devices.
+8. Testing Script: In order to eliminate bugs, it's important to conduct both unit and end-to-end testing. Tools such as Jest can be used to automate this process.
 
 
  ## Production Consideration: ##

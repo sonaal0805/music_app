@@ -1,14 +1,16 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import { Avatar, Box, IconButton, ListItemAvatar, ListItemButton, ListItemText, Modal, TextField, Typography } from '@mui/material';
-import {format} from 'timeago.js'
+import './comment.scss'
+
+import { Avatar, Box, ListItemAvatar, ListItemButton, ListItemText, Modal, TextField, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import './comment.scss'
-import { Button } from '@material-ui/core';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+
+import {format} from 'timeago.js'
+
 
 
 export default function Comment({trackId, comment,setComments}) {
@@ -96,10 +98,12 @@ export default function Comment({trackId, comment,setComments}) {
 
   const deleteComment = (e) =>{
     e.stopPropagation()
+
     let newCommentsList = JSON.parse(sessionStorage.getItem(trackId.toString()))
     newCommentsList = newCommentsList.filter(item => item.id !== newComment.id)
 
     setComments(newCommentsList)
+    setEditing(false)
 
     sessionStorage.setItem(trackId.toString(), JSON.stringify(newCommentsList));
   }
@@ -110,7 +114,6 @@ export default function Comment({trackId, comment,setComments}) {
       primary: {
         main: '#000000',
         },
-        
       },
   });
 
@@ -138,7 +141,6 @@ export default function Comment({trackId, comment,setComments}) {
 
         {editing?
           <ThemeProvider theme={commentInputTheme}>
-
             <TextField 
               value = {newComment?.text}
               variant = 'standard'
@@ -161,11 +163,11 @@ export default function Comment({trackId, comment,setComments}) {
             className = 'comment_text'
             primary = {newComment?.text}  
             secondary = {format(newComment?.timestamp)}
-            />
+          />
 
         }
 
-        {showOptions &&
+        {showOptions || !isDesktop &&
           <div className = 'icons_container'>
               <EditIcon  onClick = {(e)=> handleEditBtnClick(e)} className = 'edit_icon' sx ={{fontSize:'medium'}}/>
 
@@ -175,21 +177,22 @@ export default function Comment({trackId, comment,setComments}) {
         
       </ListItemButton>
 
-        <Modal
-          open={showFullComment}
-          onClose={()=>{setShowFullComment(false)}}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={modalStyle}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Comment
-            </Typography>
-            <ListItemText className = 'modal_comment_text' primary= {newComment?.text}  secondary = {format(newComment?.timestamp)}/>
+      <Modal
+        open={showFullComment}
+        onClose={()=>{setShowFullComment(false)}}
+      >
+        <Box sx={modalStyle}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Comment
+          </Typography>
 
-
-          </Box>
-        </Modal>
+          <ListItemText 
+            className = 'modal_comment_text' 
+            primary= {newComment?.text}  
+            secondary = {format(newComment?.timestamp)}
+          />
+        </Box>
+      </Modal>
       
     </>
 
