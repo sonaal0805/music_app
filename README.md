@@ -10,8 +10,10 @@
  ## Steps to run the app:  ##
 
 1. Install node version 18.7.0
-2. `npm install`
-3. `npm run dev`
+2. Install the required packages by running: 
+    `npm install`
+3. Run the development environment by running:
+    `npm run dev`
 
 
  ## Improvements: ##
@@ -21,16 +23,14 @@
 3. Like Feature: Users can keep a list of their favorite tracks. This feature can help in personalization as well.
 4. Better quality images
 5. Proper Server-side Database: Currently, with only 50 tracks and just one user, we don't need a proper database. But we would obviously need a proper database to scale the app.
+6. Allowing users to edit a comment directly from the comment modal. 
 
 
  ## Production Consideration: ##
 
 
-1. build the app by running the following command:
-
-    npm run build
-
-
+1. Security: We should use HTTPS
+2. Backup and Recovery: We should have a backup and recovery plan in place in case of data loss or system failure. 
 
  ## Assumptions:  ##
 

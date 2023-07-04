@@ -23,6 +23,8 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
     const [showInput, setShowInput] = useState(false)
     const [comment, setComment] = useState('')
     const [comments, setComments] = useState([])
+    const [commentError, setCommentError] = useState('')
+    const [commentLength, setCommentLength] = useState(0)
 
     const inputRef = useRef(null)
 
@@ -42,6 +44,10 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
 
         setShowInput(prev => !prev)
 
+        if(commentLength === 0 && showInput){
+          setCommentError('')
+        }
+
         return () => {
           clearTimeout(timeout);
         };
@@ -49,12 +55,20 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
 
     const handleChange = (e)=>{
       const value = e.target.value
-      setComment(value)
+
+      if(value.length < 601){
+        setComment(value)
+        setCommentError('')
+        setCommentLength(value.length)
+      }else{
+        setCommentError('Reviews cannot be longer than 600 characters')
+      }
+      
     }
 
     const handleSubmitComment = ()=>{
 
-      if(comment !== ''){
+      if(commentLength > 0 && !commentError){
         let now = Date.now()
     
         const obj = {id:`comment_${comments.length}_${now.toString()}`,text: comment, timestamp:now}
@@ -64,7 +78,15 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
 
         setComments(newCommentsList)
         setComment('')
+        setCommentError('')
+        setCommentLength(0)
         sessionStorage.setItem(trackData.trackId.toString(), JSON.stringify(newCommentsList));
+      }else{
+        if(commentLength === 0){
+          setCommentError('Review cannot be empty')
+        }else{
+          setCommentError('Reviews cannot be longer than 600 characters')
+        }
       }
 
     }
@@ -91,13 +113,9 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
 
     }
  
-
-
     useEffect(()=>{
       fetchComments()
-
     },[])
-
 
     return (
 
@@ -109,9 +127,7 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
           image={trackData?.artworkUrl100}
           alt="track image"
         />
-        {/* <ListItemAvatar>
-          <Avatar  sx ={{ width:100, height:100}} src = {trackData?.artworkUrl100}/>
-        </ListItemAvatar> */}
+   
 
         <CardContent sx ={{pb:0}}>
           <Typography noWrap  variant="h6" component="div">
@@ -119,12 +135,8 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {trackData?.artistName}
-
           </Typography>
-          {/* <Typography variant="body2" color="text.secondary">
-            
-            {trackData.trackId}
-          </Typography> */}
+
         </CardContent>
       </CardActionArea>
 
@@ -148,6 +160,8 @@ export default function TrackCard({trackData,setModalData,setModalOpen}) {
                       handleSubmitComment()
                     }
                   }}
+                  error = {commentError === ''?false:true}
+                  helperText = {commentError === '' ? `${commentLength} / 600` :commentError}
                   onChange = {(e)=> handleChange(e)}
                   className = 'comment_input'
                   inputRef = {inputRef}                  

@@ -7,7 +7,7 @@ import '../../home.scss'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { Box, Modal} from '@mui/material'
 import FlipMove from "react-flip-move";
-
+ 
 import DetailsCard from '../detailsCard/detailsCard'
 import TrackCard from '../trackCard/trackCard'
 import SearchBar from '../searchBar/searchBar'
@@ -36,6 +36,7 @@ export default function HomePage({trackList}) {
       maxHeight: '90vh',
       overflow:'scroll'
   };
+
   return (
      <div className = 'home_page'>
 
@@ -56,9 +57,9 @@ export default function HomePage({trackList}) {
     
                 <div key = {`track_${index}`}>
                     <TrackCard 
-                    trackData={track}
-                    setModalData = {setModalData}
-                    setModalOpen = {setModalOpen}
+                      trackData={track}
+                      setModalData = {setModalData}
+                      setModalOpen = {setModalOpen}
                     />
                 </div>
         
@@ -79,7 +80,6 @@ export default function HomePage({trackList}) {
           <Box sx={modalStyle}>
             <DetailsCard 
               trackData = {modalData} 
-              setModalData = {setModalData}
             />
           </Box>
         </Modal>

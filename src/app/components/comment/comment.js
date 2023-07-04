@@ -15,6 +15,8 @@ export default function Comment({trackId, comment,setComments}) {
 
   const [editing, setEditing] = useState(false)
   const [newComment, setNewComment] = useState(comment)
+  const [commentError, setCommentError] = useState('') 
+  const [commentLength, setCommentLength] = useState(0)
 
   const [showOptions, setShowOptions] = useState(false)
   const [showFullComment, setShowFullComment] = useState(false)
@@ -39,24 +41,35 @@ export default function Comment({trackId, comment,setComments}) {
   const handleEditBtnClick = (e) =>{
     e.stopPropagation()
     setEditing(prev => !prev)
+    setCommentLength(newComment.text.length)
   }
 
   const handleChange = (e) =>{
 
     const value = e.target.value
-    setNewComment(prev => ({...prev, text: value}))
+
+    if(value.length < 601){
+      
+      setCommentError('')
+      setNewComment(prev => ({...prev, text: value}))
+      setCommentLength(value.length)
+      
+    }else{
+      setCommentError('Reviews cannot be longer than 600 characters')
+      setShowOptions(false)
+    }
 
   }
 
   const editComment = ()=>{
 
-    if(newComment.text !== ''){
+    if(commentLength > 0 && !commentError){
 
       let exisitingComments = JSON.parse(sessionStorage.getItem(trackId.toString()))
 
       exisitingComments = exisitingComments.map(item => {
 
-        if(item.id === newComment.id){
+      if(item.id === newComment.id){
           return {...item, text: newComment.text}
         }else{
           return item
@@ -65,10 +78,19 @@ export default function Comment({trackId, comment,setComments}) {
 
       exisitingComments.sort((a,b) => b.timestamp - a.timestamp)
       setComments(exisitingComments)
-
+      setEditing(false)
+      setCommentError('')
+      setCommentLength(0)
       sessionStorage.setItem(trackId.toString(), JSON.stringify(exisitingComments));
+
+    }else{
+      if(commentLength === 0){
+        setCommentError('Review cannot be empty')
+      }else{
+        setCommentError('Reviews cannot be longer than 600 characters')
+      }
+
     }
-    setEditing(false)
 
   }
 
@@ -81,13 +103,15 @@ export default function Comment({trackId, comment,setComments}) {
 
     sessionStorage.setItem(trackId.toString(), JSON.stringify(newCommentsList));
   }
+
+
   const commentInputTheme = createTheme({
-  palette: {
-    primary: {
-      main: '#000000',
+    palette: {
+      primary: {
+        main: '#000000',
+        },
+        
       },
-      
-    },
   });
 
   useEffect(()=>{
@@ -95,19 +119,18 @@ export default function Comment({trackId, comment,setComments}) {
   },[comment])
 
 
+
   return (
 
     <>
-      <ListItemButton       
+      <ListItemButton   
+
         disableRipple 
-
         className = 'comment'
-
         onMouseEnter={() => setShowOptions(true)}
         onMouseLeave={() => setShowOptions(false)}
         onClick = {()=>setShowFullComment(true)}
-        
-      
+  
       >
         <ListItemAvatar className = 'avatar_container'>
           <Avatar/>
@@ -120,7 +143,9 @@ export default function Comment({trackId, comment,setComments}) {
               value = {newComment?.text}
               variant = 'standard'
               multiline
-              color= "primary"
+              error = {commentError === '' ? false: true}
+              helperText = {commentError === '' ? `${commentLength} / 600` :commentError}
+              color = "primary"
               onChange={(e)=>handleChange(e)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -134,7 +159,7 @@ export default function Comment({trackId, comment,setComments}) {
         :
           <ListItemText 
             className = 'comment_text'
-            primary= {newComment?.text}  
+            primary = {newComment?.text}  
             secondary = {format(newComment?.timestamp)}
             />
 
@@ -146,7 +171,6 @@ export default function Comment({trackId, comment,setComments}) {
 
               <DeleteIcon onClick = {(e)=> deleteComment(e)} className = 'delete_icon' sx ={{fontSize:'medium'}} />
           </div>
-
         }
         
       </ListItemButton>
@@ -161,23 +185,13 @@ export default function Comment({trackId, comment,setComments}) {
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Comment
             </Typography>
-            {/* <Typography id="modal-modal-description" sx={{ mt: 2,wordWrap: 'break-word'}}>
-              {newComment?.text}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2,wordWrap: 'break-word'}}>
-              {format(newComment?.timestamp)}
-            </Typography> */}
-            <ListItemText primary= {newComment?.text}  secondary = {format(newComment?.timestamp)}/>
+            <ListItemText className = 'modal_comment_text' primary= {newComment?.text}  secondary = {format(newComment?.timestamp)}/>
 
-          
+
           </Box>
         </Modal>
       
     </>
-
-
-
-
 
   );
 }

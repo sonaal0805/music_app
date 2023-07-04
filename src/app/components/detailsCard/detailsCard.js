@@ -4,18 +4,13 @@ import { Avatar, Card, CardActionArea, CardContent, CardMedia, Collapse, IconBut
 import React, { useEffect, useState } from 'react'
 import './detailsCard.scss'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
-import CloseIcon from '@mui/icons-material/Close';
 import moment from 'moment'
-import useMediaQuery from '@mui/material/useMediaQuery';
 
-
-export default function DetailsCard({trackData,setModalData}) {
-
+export default function DetailsCard({trackData}) {
 
   const [relatedTracks , setRelatedTracks] = useState([])
   const [showRelatedTracks, setShowRelatedTracks] = useState(false)
   const [error, setError] = useState(false)
-  const isDesktop = useMediaQuery('(min-width:600px)');
 
   const millisToMinutesAndSeconds = (millis) => {
       const minutes = Math.floor(millis / 60000);
@@ -54,20 +49,8 @@ export default function DetailsCard({trackData,setModalData}) {
   return (
 
 
-    <Card 
-      className = 'detailsCard' 
-      sx={{ boxShadow:'none',maxHeight: '100%',overflowY: 'scroll' }}
-    >
+    <Card className = 'detailsCard' >
       <CardActionArea disableRipple>
-
-        {/* {isDesktop &&
-   
-          <CloseIcon
-            onClick = {()=>setModalData({})}
-            className = 'closeButton' 
-            sx ={{position : 'absolute', top:1, right: 1}}
-          />
-          } */}
         
         <CardMedia
           component="img"
@@ -75,7 +58,9 @@ export default function DetailsCard({trackData,setModalData}) {
           image={trackData?.artworkUrl100}
           alt="track image"
         />
+
         <CardContent>
+
           <Typography className = 'track' gutterBottom variant="h6" component="div">
             {trackData?.trackName} <span>{`$${trackData?.trackPrice}`}</span>
           </Typography>
@@ -84,24 +69,25 @@ export default function DetailsCard({trackData,setModalData}) {
             Collection: {trackData?.collectionName}
             <span>{`$${trackData?.collectionPrice}`}</span>
           </Typography>
+
           <Typography variant="body2" color="text.secondary">
             Artist: {trackData?.artistName}
           </Typography>
-            <Typography variant="body2" color="text.secondary">
+
+          <Typography variant="body2" color="text.secondary">
             Duration: {millisToMinutesAndSeconds(trackData?.trackTimeMillis)}
           </Typography>
+
           <Typography variant="body2" color="text.secondary">
             Released on: {moment(trackData?.releaseDate).format('MMM Do YYYY')}
           </Typography>
+
           <Typography variant="body2" color="text.secondary">
             Genre: {trackData?.primaryGenreName}
           </Typography>
 
           {error? 
-
             <ListItemText primary= {error} sx ={{color:'red'}}/>
- 
-           
           :
           <>
             <ListItemButton className = 'expand_button' onClick={handleExapandBtnClick}>
@@ -111,7 +97,8 @@ export default function DetailsCard({trackData,setModalData}) {
 
             <Collapse 
               in={showRelatedTracks} 
-              timeout="auto" unmountOnExit
+              timeout="auto" 
+              unmountOnExit
             >
               <List component="div">
 
@@ -128,21 +115,15 @@ export default function DetailsCard({trackData,setModalData}) {
                         
                       </ListItemButton>
                     </div>
-              
-
                   )}
-                
               </List>
             </Collapse>
           </>
-
           }
 
         </CardContent>
 
-
       </CardActionArea>
-
 
     </Card>
 

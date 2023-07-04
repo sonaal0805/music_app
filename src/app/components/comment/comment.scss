@@ -1,12 +1,6 @@
 
 
-.avatar_container{
-    // border:1px solid red;
-}
-
-
 .icons_container{
-    // border:1px solid red;
     display: flex;
     gap:0.5rem;
     position: absolute;
@@ -20,6 +14,16 @@
         max-width: 80%;
         text-overflow: ellipsis;
         overflow: hidden;
+    }
+}
+
+
+
+.modal_comment_text {
+    .MuiListItemText-primary {
+        word-wrap: break-word;
+        max-width: 100%;
+
     }
 }
 
